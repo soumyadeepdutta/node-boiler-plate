@@ -23,9 +23,10 @@ app.get('/api', (req, res) => {
 })
 
 // handle errors
-// app.use(errorMiddleware)
+app.use(errorMiddleware)
 app.all('*', (req, res, next) => {
-    return next(new CustomError('route not found', 404))
+    // return res.send('not found')
+    return res.status(404).json({success: false, message: `${req.originalUrl} not found`})
 })
 
 module.exports = app
